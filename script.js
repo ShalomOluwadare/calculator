@@ -1,5 +1,5 @@
 const question = document.querySelector('.question');
-const answer = document.querySelector('.answer')
+const answer = document.querySelector('#answer')
 const clearBtn=document.querySelector('.clearbtn');
 const removeBtn=document.querySelector('.removebtn');
 const addBtn=document.querySelector('.addbtn');
@@ -7,52 +7,51 @@ const subtractBtn=document.querySelector('subtractbtn');
 const multiplyBtn=document.querySelector('.multiplybtn')
 const divideBtn=document.querySelector('.dividebtn')
 const numbtn=document.querySelectorAll('.num')
+const equalbtn=document.querySelector('.equalbtn')
 
 let questionBox=question.textContent
 let answerbox;
 let firstValue;
-let secondValue;
+let secondValue=0;
+let sum;
+let Answer;
 let queso=false
-addBtn.addEventListener('click',()=>{setCurrentMode('add');
-    queso=true
-})
+answer.style.color='grey'
 
 numbtn.forEach(e=>{
     e.addEventListener('click',()=>{
-       
-       
+        questionBox+=e.textContent
+        question.textContent=questionBox
         if (!queso){
-            questionBox+=e.textContent
-            question.textContent=questionBox
             firstValue=questionBox
             console.log(firstValue)
         }
         else{
-            
-            console.log(questionBox)
-            questionBox+=e.textContent
-            question.textContent=questionBox
-            //checkValue(e,questionBox,question)
             secondValue=questionBox
             console.log(secondValue)
+            operate(firstValue,secondValue)
+            ans=operate(firstValue,secondValue)
+            
         }
+        addBtn.addEventListener('click',()=>{setCurrentMode('add');
+    queso=true
+    if (secondValue===0){
+    question.textContent=''
+    questionBox=question.textContent}
+    else{
+        answer.classList.remove('devcheck')
+        firstValue=ans
+        question.textContent=''
+        questionBox=question.textContent
+    }
+})
     }
 )
 }
 )
-/*function checkValue(ai,bi,ci){
-    question.textContent=''
-    if(queso===true){
-        questionBox=question.textContent
-        questionBox+=ai.textContent
-        question.textContent=questionBox
 
-    } 
-    
-}*/
-
-function clearScreen(){
-    question.textContent='vhb'
+function clearScreen(e){
+    e.textContent=''
 }
 function limit(d){
     charNum=d.text.length
@@ -63,49 +62,44 @@ function limit(d){
 
 function setCurrentMode(newMode){
     option = newMode
-    operate(firstValue,secondValue)
 };
 
-function addNum(...args){
-    let sum = 0;
-    for (let arg of args) sum += arg;
-    return sum;
-
+function addNum(a,b){
+    return a+b;
 }
-addNum(2,4,5,6,7,8)
-function subtractNum(...args){
-    let sum=args[0];
-    reg=args.slice(1,)
-        for (re of reg){
-        sum -=re
-        }
-    console.log(sum)
-    return sum;
+function subtractNum(a,b){
+    return a-b;
 }
-subtractNum(2,4,1)
-function multiplyNum(...args){
-    let sum = 1;
-    for (let arg of args) sum *= arg;
-    console.log (sum)
-    return sum;
+function multiplyNum(a,b){
+    return a*b;
 }
-multiplyNum(2,2,2)
 function divideNum(a,b){
     return a/b
 }
 
+function updateAnswer(target,value){
+    target.textContent=value
+}
 
 function operate(a,b){
+    a=Number(a)
+    b=Number(b)
     if (option==='add'){
-        addNum(a,b)
+        Answer=addNum(a,b)
     }
-    if (option==='subtract'){
-        subtractNum(a,b)
+    else if (option==='subtract'){
+       Answer=subtractNum(a,b)
     }
-    if (option==='multiply'){
-        multiplyNum(a,b)
+    else if (option==='multiply'){
+        Answer=multiplyNum(a,b)
     }
-    if (option==='divide'){
-        divideNum(a,b)
+    else if (option==='divide'){
+        Answer=divideNum(a,b)
     }
+    updateAnswer(answer,Answer)
+    equalbtn.addEventListener('click',()=>{
+        answer.style.color='black'
+    })
+    return Answer
 }
+
