@@ -20,36 +20,48 @@ let Answer;
 let queso = false;
 let ans;
 
+clearBtn.addEventListener("click", clearobtn);
+decimalbtn.addEventListener("click", decimalobtn);
+deleteBtn.addEventListener("click", deleteobtn);
+equalbtn.addEventListener("click", equalsto);
+
 numbtn.forEach((e) => {
   e.addEventListener("click", () => {
     answer.style.color = "grey";
-    questionBox = question.textContent;
-    questionBox += e.textContent;
-    question.textContent = questionBox;
-    if (!queso) {
-      firstValue = questionBox;
-      console.log(firstValue);
-    } else {
-      secondValue = questionBox;
-      console.log(secondValue);
-    }
+    inputNumber(e);
   });
 });
-decimalbtn.addEventListener(
-  "click",
-  () => {
-    if (!questionBox.includes(".")) {
-      questionBox += decimalbtn.textContent;
-      question.textContent = questionBox;
-      console.log(questionBox);
-      console.log("ghuytgbn");
-    } else {
-      return;
-    }
-  },
-  (once = true)
-);
-deleteBtn.addEventListener("click", () => {
+
+function inputNumber(e) {
+  questionBox = question.textContent;
+  questionBox += e.textContent;
+  question.textContent = questionBox;
+  if (!queso) {
+    firstValue = questionBox;
+    console.log(firstValue);
+  } else {
+    secondValue = questionBox;
+    console.log(secondValue);
+    ans = operate(firstValue, secondValue);
+  }
+}
+
+function equalsto() {
+  answer.style.color = "black";
+  ans = operate(firstValue, secondValue);
+}
+
+function decimalobtn() {
+  if (!questionBox.includes(".")) {
+    questionBox += decimalbtn.textContent;
+    question.textContent = questionBox;
+    console.log(questionBox);
+  } else {
+    return;
+  }
+}
+
+function deleteobtn() {
   if (questionBox.length > 1) {
     question.textContent = question.textContent.substring(
       0,
@@ -63,7 +75,8 @@ deleteBtn.addEventListener("click", () => {
       secondValue = questionBox;
     }
   }
-});
+}
+
 operation.forEach((s) => {
   s.addEventListener("click", () => {
     setCurrentMode(s.textContent);
@@ -79,23 +92,14 @@ operation.forEach((s) => {
     }
   });
 });
-clearBtn.addEventListener("click", () => {
+
+function clearobtn() {
   queso = false;
   question.textContent = "";
   answer.textContent = "0";
   questionBox = question.textContent;
   firstValue = 0;
   secondValue = 0;
-});
-function clearScreen(d, e) {
-  e.textContent = "";
-  d.textContent = "";
-}
-function limit(d) {
-  charNum = d.text.length;
-  if (charNum >= 12) {
-    return alert("you reached the text limit");
-  }
 }
 
 function setCurrentMode(newMode) {
@@ -103,25 +107,25 @@ function setCurrentMode(newMode) {
 }
 
 function addNum(a, b) {
-  return a + b;
+  num = a + b;
+  return num.toFixed(1);
 }
 function subtractNum(a, b) {
-  return a - b;
+  num = a - b;
+  return num.toFixed(1);
 }
 function multiplyNum(a, b) {
-  return a * b;
+  num = a * b;
+  return num.toFixed(1);
 }
 function divideNum(a, b) {
-  return a / b;
+  num = a / b;
+  return num.toFixed(1);
 }
 
 function updateAnswer(target, value) {
   target.textContent = value;
 }
-equalbtn.addEventListener("click", () => {
-  answer.style.color = "black";
-  ans = operate(firstValue, secondValue);
-});
 
 function operate(a, b) {
   a = Number(a);
