@@ -50,16 +50,18 @@ decimalbtn.addEventListener(
   (once = true)
 );
 deleteBtn.addEventListener("click", () => {
-  question.textContent = question.textContent.substring(
-    0,
-    question.textContent.length - 1
-  );
-  questionBox = question.textContent;
-  console.log(questionBox);
-  if (questionBox.length > 1 && !queso) {
-    firstValue = questionBox;
-  } else if (questionBox.length > 1 && queso) {
-    secondValue = questionBox;
+  if (questionBox.length > 1) {
+    question.textContent = question.textContent.substring(
+      0,
+      question.textContent.length - 1
+    );
+    questionBox = question.textContent;
+    console.log(questionBox);
+    if (!queso) {
+      firstValue = questionBox;
+    } else if (queso) {
+      secondValue = questionBox;
+    }
   }
 });
 operation.forEach((s) => {
