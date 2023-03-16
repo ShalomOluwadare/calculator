@@ -1,76 +1,74 @@
-body{
-    background-color: rgb(255, 252, 252);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+body {
+  background-color: rgb(255, 252, 252);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-strong{
-    font-size: 20px;
-}
-
-h1{
-    font-family: fantasy;
-    border-bottom-style: groove;
+strong {
+  font-size: 20px;
 }
 
-#container{
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(20, 29, 77);
-    padding: 20px;
-    border-radius: 25px ;
-    border:2px solid black;
+h1 {
+  font-family: fantasy;
+  border-bottom-style: groove;
 }
 
-#display{
-    width: 100%;
-    height: 118px;
-    background-color: white;
-    border-radius: 25px; 
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;  
+#container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(11, 18, 9, 0.834);
+  padding: 20px;
+  border-radius: 25px;
+  border: 2px solid black;
 }
 
-.question{
-    padding: 10px;
-    font-size: 20px;
+#display {
+  width: 100%;
+  height: 118px;
+  background-color: white;
+  border-radius: 25px;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
 }
 
-#displayContent{
-    font-size: 50px;
-    display: flex;
-    padding: 10px;
-    justify-content: flex-end;
-    align-items: end;
-}
-#remove{
-    display: flex;
-    width: 100%;
-    flex: 1;
-}
-#remove>button{
-    width: 100%;
-    height: 50px;
-    margin: 5px;
-}
-button{
-    background-color: white;
-    border-radius: 10px;
-}
-#buttons{
-    display: grid;
-    grid-template-columns: repeat(4,100px);
-    grid-template-rows: repeat(4,100px);
-    gap: 5px;
+.question {
+  padding: 10px;
+  font-size: 20px;
 }
 
-button:hover{
-    background-color: rgb(214, 217, 219);
-    border: none;
+#displayContent {
+  font-size: 50px;
+  display: flex;
+  padding: 10px;
+  justify-content: flex-end;
+  align-items: end;
 }
-.num{
-    background-color: red;
+#remove {
+  display: flex;
+  width: 100%;
+  flex: 1;
 }
-.operate{
-    background-color: blueviolet;
+#remove > button {
+  width: 100%;
+  height: 50px;
+  margin: 5px;
+  background-color: rgb(49, 30, 161);
+}
+button {
+  background-color: rgb(216, 29, 29);
+  border-radius: 10px;
+}
+#buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: repeat(4, 100px);
+  gap: 5px;
+}
+
+button:hover {
+  background-color: rgb(218, 199, 30);
+  border: none;
+}
+.num {
+  background-color: rgb(27, 45, 113);
 }

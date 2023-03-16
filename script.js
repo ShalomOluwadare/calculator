@@ -1,13 +1,14 @@
 const question = document.querySelector(".question");
 const answer = document.querySelector("#answer");
 const clearBtn = document.querySelector(".clearbtn");
-const removeBtn = document.querySelector(".removebtn");
+const deleteBtn = document.querySelector(".deletebtn");
 const addBtn = document.querySelector(".addbtn");
 const subtractBtn = document.querySelector("subtractbtn");
 const multiplyBtn = document.querySelector(".multiplybtn");
 const divideBtn = document.querySelector(".dividebtn");
 const numbtn = document.querySelectorAll(".num");
 const equalbtn = document.querySelector(".equalbtn");
+const decimalbtn = document.querySelector(".decimalbtn");
 const operation = document.querySelectorAll(".operate");
 
 let questionBox = question.textContent;
@@ -17,13 +18,11 @@ let secondValue = 0;
 let sum;
 let Answer;
 let queso = false;
-let caramba;
 let ans;
-
-answer.style.color = "grey";
 
 numbtn.forEach((e) => {
   e.addEventListener("click", () => {
+    answer.style.color = "grey";
     questionBox = question.textContent;
     questionBox += e.textContent;
     question.textContent = questionBox;
@@ -33,35 +32,59 @@ numbtn.forEach((e) => {
     } else {
       secondValue = questionBox;
       console.log(secondValue);
-      operate(firstValue, secondValue);
-      ans = operate(firstValue, secondValue);
     }
-    operation.forEach((s) => {
-      s.addEventListener("click", () => {
-        setCurrentMode(s.textContent);
-        queso = true;
-        if (secondValue === 0) {
-          question.textContent = "";
-          questionBox = question.textContent;
-        } else {
-          answer.classList.remove("devcheck");
-          firstValue = ans;
-          question.textContent = "";
-          questionBox = question.textContent;
-        }
-      });
-    });
-    clearBtn.addEventListener("click", () => {
-      queso = false;
-      question.textContent = "";
-      answer.textContent = "0";
-      questionBox = question.textContent;
-      firstValue = 0;
-      secondValue = 0;
-    });
   });
 });
-
+decimalbtn.addEventListener(
+  "click",
+  () => {
+    if (!questionBox.includes(".")) {
+      questionBox += decimalbtn.textContent;
+      question.textContent = questionBox;
+      console.log(questionBox);
+      console.log("ghuytgbn");
+    } else {
+      return;
+    }
+  },
+  (once = true)
+);
+deleteBtn.addEventListener("click", () => {
+  question.textContent = question.textContent.substring(
+    0,
+    question.textContent.length - 1
+  );
+  questionBox = question.textContent;
+  console.log(questionBox);
+  if (questionBox.length > 1 && !queso) {
+    firstValue = questionBox;
+  } else if (questionBox.length > 1 && queso) {
+    secondValue = questionBox;
+  }
+});
+operation.forEach((s) => {
+  s.addEventListener("click", () => {
+    setCurrentMode(s.textContent);
+    queso = true;
+    if (secondValue === 0) {
+      question.textContent = "";
+      questionBox = question.textContent;
+    } else {
+      answer.classList.remove("devcheck");
+      firstValue = ans;
+      question.textContent = "";
+      questionBox = question.textContent;
+    }
+  });
+});
+clearBtn.addEventListener("click", () => {
+  queso = false;
+  question.textContent = "";
+  answer.textContent = "0";
+  questionBox = question.textContent;
+  firstValue = 0;
+  secondValue = 0;
+});
 function clearScreen(d, e) {
   e.textContent = "";
   d.textContent = "";
@@ -93,6 +116,10 @@ function divideNum(a, b) {
 function updateAnswer(target, value) {
   target.textContent = value;
 }
+equalbtn.addEventListener("click", () => {
+  answer.style.color = "black";
+  ans = operate(firstValue, secondValue);
+});
 
 function operate(a, b) {
   a = Number(a);
@@ -107,8 +134,5 @@ function operate(a, b) {
     Answer = divideNum(a, b);
   }
   updateAnswer(answer, Answer);
-  equalbtn.addEventListener("click", () => {
-    answer.style.color = "black";
-  });
   return Answer;
 }
