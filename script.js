@@ -20,21 +20,40 @@ let Answer;
 let queso = false;
 let ans;
 
+window.addEventListener("keydown", handleKeyboardInput);
 clearBtn.addEventListener("click", clearobtn);
 decimalbtn.addEventListener("click", decimalobtn);
 deleteBtn.addEventListener("click", deleteobtn);
 equalbtn.addEventListener("click", equalsto);
 
-numbtn.forEach((e) => {
-  e.addEventListener("click", () => {
-    answer.style.color = "grey";
-    inputNumber(e);
+operation.forEach((s) => {
+  s.addEventListener("click", () => {
+    setCurrentMode(s.textContent);
+    operatey();
   });
 });
 
+numbtn.forEach((e) => {
+  e.addEventListener("click", () => {
+    answer.style.color = "grey";
+    inputNumber(e.textContent);
+  });
+});
+
+function handleKeyboardInput(e) {
+  if (e.key >= 0 && e.key <= 9) inputNumber(e.key);
+  if (e.key === ".") decimalobtn();
+  if (e.key === "=" || e.key === "Enter") equalsto();
+  if (e.key === "Backspace") deleteobtn();
+  if (e.key === "Escape") clearobtn();
+  if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
+    setCurrentMode(e.key);
+    operatey();
+  }
+}
+
 function inputNumber(e) {
-  questionBox = question.textContent;
-  questionBox += e.textContent;
+  questionBox += e;
   question.textContent = questionBox;
   if (!queso) {
     firstValue = questionBox;
@@ -77,22 +96,17 @@ function deleteobtn() {
   }
 }
 
-operation.forEach((s) => {
-  s.addEventListener("click", () => {
-    setCurrentMode(s.textContent);
-    queso = true;
-    if (secondValue === 0) {
-      question.textContent = "";
-      questionBox = question.textContent;
-    } else {
-      answer.classList.remove("devcheck");
-      firstValue = ans;
-      question.textContent = "";
-      questionBox = question.textContent;
-    }
-  });
-});
-
+function operatey() {
+  queso = true;
+  if (secondValue === 0) {
+    question.textContent = "";
+    questionBox = question.textContent;
+  } else {
+    firstValue = ans;
+    question.textContent = "";
+    questionBox = question.textContent;
+  }
+}
 function clearobtn() {
   queso = false;
   question.textContent = "";
@@ -101,11 +115,9 @@ function clearobtn() {
   firstValue = 0;
   secondValue = 0;
 }
-
 function setCurrentMode(newMode) {
   option = newMode;
 }
-
 function addNum(a, b) {
   num = a + b;
   return num.toFixed(1);
@@ -134,7 +146,7 @@ function operate(a, b) {
     Answer = addNum(a, b);
   } else if (option === "-") {
     Answer = subtractNum(a, b);
-  } else if (option === "x") {
+  } else if (option === "x" || option === "*") {
     Answer = multiplyNum(a, b);
   } else if (option === "/") {
     Answer = divideNum(a, b);
